@@ -1,79 +1,103 @@
-# SUMMARY.md Template
+# Summary Template
 
-> Copy this template when documenting completed plan execution.
+Template for `.gsd/phases/{N}/{plan}-SUMMARY.md` — execution summary after plan completion.
+
+---
+
+## File Template
 
 ```markdown
 ---
 phase: {N}
 plan: {M}
-completed_at: {YYYY-MM-DD HH:MM}
-duration_minutes: {X}
-tasks_completed: {Y}
+completed_at: [ISO timestamp]
+duration_minutes: {N}
+status: complete | partial | failed
 ---
 
-# Summary: Plan {N}.{M} — {Plan Name}
+# Summary: {Plan Name}
 
-## Outcome
-**Status:** ✅ Complete
+## Results
 
-## Completed Tasks
+- **Tasks:** {N}/{M} completed
+- **Commits:** {N}
+- **Verification:** {passed | failed}
 
-### 1. {Task 1 Name}
-- **Files:** `{file1}`, `{file2}`
-- **What was done:** {Brief description}
-- **Verification:** PASS — {evidence}
+---
 
-### 2. {Task 2 Name}
-- **Files:** `{file1}`
-- **What was done:** {Brief description}
-- **Verification:** PASS — {evidence}
+## Tasks Completed
+
+| Task | Description | Commit | Status |
+|------|-------------|--------|--------|
+| 1 | {task name} | {hash} | ✅ Complete |
+| 2 | {task name} | {hash} | ✅ Complete |
+| 3 | {task name} | — | ❌ Blocked |
+
+---
 
 ## Files Changed
 
-| File | Change |
-|------|--------|
-| `{path/to/file1}` | {Created | Modified | Deleted} — {what changed} |
-| `{path/to/file2}` | {Created | Modified | Deleted} — {what changed} |
+| File | Change Type | Description |
+|------|-------------|-------------|
+| {path} | Created | {what it does} |
+| {path} | Modified | {what changed} |
+| {path} | Deleted | {why removed} |
 
-## Commits
+---
 
-| Hash | Message |
-|------|---------|
-| `{abc123}` | feat(phase-{N}): {task 1} |
-| `{def456}` | feat(phase-{N}): {task 2} |
+## Deviations Applied
 
-## Deviations from Plan
-{Any differences between plan and actual execution}
-- None
+{If none: "None — executed as planned."}
 
-OR
+### Rule 1 — Bug Fixes
+- {description of bug fixed}
 
-- {Deviation 1}: {Why and what was done instead}
+### Rule 2 — Missing Critical
+- {description of functionality added}
 
-## Issues Encountered
-{Problems hit during execution}
-- None
+### Rule 3 — Blocking Issues
+- {description of blocker fixed}
 
-OR
+---
 
-- {Issue 1}: {How it was resolved}
+## Verification
 
-## Notes for Future Reference
-{Anything useful to know}
-- {Note 1}
-- {Note 2}
+| Check | Status | Evidence |
+|-------|--------|----------|
+| {verification 1} | ✅ Pass | {command/output} |
+| {verification 2} | ✅ Pass | {command/output} |
+
+---
+
+## Notes
+
+{Any observations, concerns, or recommendations for future phases}
+
+---
+
+## Metadata
+
+- **Started:** {timestamp}
+- **Completed:** {timestamp}
+- **Duration:** {N} minutes
+- **Context Usage:** ~{N}%
 ```
 
-## Frontmatter Purpose
+---
 
-The frontmatter enables automated processing:
+## Guidelines
 
-```yaml
-phase: 1          # Links to correct phase
-plan: 2           # Identifies specific plan
-completed_at: ... # Timestamp for history
-duration_minutes: # Execution time tracking
-tasks_completed:  # Success metrics
-```
+**Create SUMMARY.md:**
+- After each plan completes
+- Before moving to next plan
+- Even if plan failed (document what happened)
 
-This allows building dependency graphs and tracking progress programmatically.
+**Include:**
+- All commits with hashes
+- All deviations (never hide these)
+- Verification results with evidence
+
+**Keep it factual:**
+- No opinions
+- Just what happened
+- Evidence over claims
