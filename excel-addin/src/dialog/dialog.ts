@@ -279,10 +279,19 @@ SET_FORMULA|Address|Formula
 FORMAT_BOLD|Address|true/false
 FORMAT_COLOR|Address|ColorCode
 CREATE_SHEET|Name
+RENAME_SHEET|NewName (for active) OR RENAME_SHEET|OldName|NewName
+DELETE_SHEET|Name
+DELETE_ROWS|Range (e.g. 5:5 for row 5, 2:10 for rows 2-10)
+DELETE_COLUMNS|Range (e.g. B:B for col B, A:C for cols A-C)
+CREATE_CHART|Type(ColumnClustered/Line/Pie)|Range|Title
+DELETE_CHART|Title (use only if user specifies which one)
+DELETE_ALL_CHARTS (use only if user says "all" or doesn't specify which one)
+SORT|Range|ColumnIndex(0-based)|Ascending(true/false)
 
 2. If the user says "this", "it", "selection", or implies the current range, USE the 'Selection' address from the Context below.
-3. If you output commands, do NOT output conversational text unless absolutely necessary.
-4. If you need clarification, do NOT output commands.
+3. Use DELETE_ROWS|5:5 instead of DELETE_ROWS|A5 to delete the entire row.
+4. If you output commands, do NOT output conversational text unless absolutely necessary.
+5. If you need clarification, do NOT output commands.
 
 Example:
 User: "Color this red" (Context Selection: B2)
