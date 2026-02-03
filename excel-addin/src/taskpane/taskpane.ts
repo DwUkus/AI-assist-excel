@@ -56,16 +56,25 @@ async function openAssistantDialog(): Promise<void> {
 
           dialog.addEventHandler(Office.EventType.DialogMessageReceived, async (arg: any) => {
              console.log("Message from dialog:", arg.message);
+             
+             let msg: any = {};
+             
+             // Try Parsing JSON
              try {
-                 const msg = JSON.parse(arg.message);
-                 
+                 msg = JSON.parse(arg.message);
+             } catch (e) {
+                 // Not JSON, treat as string command
+                 msg = { type: arg.message };
+             }
+
+             try {
                  if (msg.type === "EXECUTE") {
                      const result = await CommandExecutor.execute(msg.commands);
                      const response = JSON.stringify({ type: "EXECUTION_RESULT", data: result });
                      // @ts-ignore
                      dialog.messageChild(response);
                  }
-                 else if (msg.type === "GET_CONTEXT" || arg.message === "GET_CONTEXT") {
+                 else if (msg.type === "GET_CONTEXT") {
                      const context = await ContextBuilder.getContext();
                      const response = JSON.stringify({ type: "CONTEXT", data: context });
                      // @ts-ignore
