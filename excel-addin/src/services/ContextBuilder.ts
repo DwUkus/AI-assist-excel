@@ -7,8 +7,12 @@
 
 export interface ExcelContext {
     sheetName: string;
-    address: string;
-    values: any[][];
+    address: string; // Selection address
+    values: any[][];  // Selection values
+    usedRange?: {
+        address: string;
+        values: any[][];
+    };
     error?: string;
 }
 
@@ -18,28 +22,34 @@ export class ContextBuilder {
             return await Excel.run(async (context) => {
                 const sheet = context.workbook.worksheets.getActiveWorksheet();
                 const range = context.workbook.getSelectedRange();
+                const usedRange = sheet.getUsedRange(true); // true = values only
 
                 sheet.load("name");
-                range.load("address");
-                range.load("values");
-                // Limit size? For now, we trust the selection isn't huge. 
-                // In production, we should crop to e.g. 50x20.
+                range.load("address, values");
+                usedRange.load("address, values");
 
                 await context.sync();
 
-                // Simple size check to avoid token explosion
-                let values = range.values;
-                const MAX_ROWS = 50;
-                const MAX_COLS = 20;
+                // Process Selection
+                let selValues = range.values;
+                if (selValues.length > 50 || selValues[0].length > 20) {
+                    selValues = selValues.slice(0, 50).map(row => row.slice(0, 20));
+                }
 
-                if (values.length > MAX_ROWS || values[0].length > MAX_COLS) {
-                    values = values.slice(0, MAX_ROWS).map(row => row.slice(0, MAX_COLS));
+                // Process UsedRange (Brief overview)
+                let urValues = usedRange.values;
+                if (urValues.length > 100 || urValues[0].length > 20) {
+                    urValues = urValues.slice(0, 100).map(row => row.slice(0, 20));
                 }
 
                 return {
                     sheetName: sheet.name,
                     address: range.address,
-                    values: values
+                    values: selValues,
+                    usedRange: {
+                        address: usedRange.address,
+                        values: urValues
+                    }
                 };
             });
         } catch (error) {

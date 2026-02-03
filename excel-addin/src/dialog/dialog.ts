@@ -298,7 +298,10 @@ User: "Color this red" (Context Selection: B2)
 Output: FORMAT_COLOR|B2|red`;
 
         if (contextData && contextData.sheetName) {
-            systemPrompt += `\n\nCURRENT EXCEL CONTEXT:\nSheet: ${contextData.sheetName}\nSelection: ${contextData.address}\nValues:\n${JSON.stringify(contextData.values)}`;
+            systemPrompt += `\n\nCURRENT EXCEL CONTEXT:\nSheet: ${contextData.sheetName}\nSelection: ${contextData.address}\nValues (Selection):\n${JSON.stringify(contextData.values)}`;
+            if (contextData.usedRange) {
+                systemPrompt += `\n\nSheet Overview (Used Range: ${contextData.usedRange.address}):\n${JSON.stringify(contextData.usedRange.values)}`;
+            }
         }
 
         // Construct Message Chain
