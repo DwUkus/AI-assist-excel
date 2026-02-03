@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Ассистент</title>
+    <script
+      type="text/javascript"
+      src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"
+    ></script>
+    <link href="dialog.css" rel="stylesheet" type="text/css" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header (Optional, mostly minimal) -->
+      <header class="app-header">
+        <div class="header-title">AI Excel Assistant</div>
+        <div class="header-actions">
+          <button id="settings-btn" class="icon-btn" title="Настройки API Key">⚙️</button>
+        </div>
+      </header>
+
+      <!-- Chat History -->
+      <div class="chat-history" id="chat-history">
+        <div class="message message-ai">
+          <div class="avatar">🤖</div>
+          <div class="message-content">
+            Привет! Я готов помочь вам с Excel. Напишите, что нужно сделать, например:
+            <ul>
+              <li>"Создай сводную таблицу по продажам"</li>
+              <li>"Выдели красным значения меньше 0"</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Dynamic messages will be appended here -->
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-area">
+        <div class="toolbar">
+          <div class="model-selector-wrapper">
+            <select id="model-select" class="model-select">
+              <!-- Populated via JS -->
+            </select>
+          </div>
+          <div class="context-toggles">
+            <label class="toggle-label" title="Отправить выделенные данные в AI">
+              <input type="checkbox" id="include-data" checked />
+              <span>📝 Данные</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <textarea
+            id="user-input"
+            placeholder="Введите команду... (Ctrl+Enter)"
+            rows="1"
+          ></textarea>
+          <button id="send-btn" class="send-btn">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Modal (Hidden by default) -->
+    <div id="settings-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Настройки</h3>
+        <div class="form-group">
+          <label>OpenRouter API Key</label>
+          <input type="password" id="api-key-input" placeholder="sk-or-..." />
+        </div>
+        <div class="modal-actions">
+          <button id="save-settings-btn" class="primary-btn">Сохранить API Key</button>
+          <button id="close-settings-btn" class="secondary-btn">Закрыть</button>
+        </div>
+
+        <hr class="settings-divider" />
+
+        <h3>Управление моделями</h3>
+        <div class="model-management">
+          <div id="model-list" class="model-list">
+            <!-- Models will be injected here -->
+          </div>
+
+          <div class="add-model-form">
+            <h4>Добавить модель</h4>
+            <input
+              type="text"
+              id="new-model-id"
+              placeholder="Model ID (e.g. google/gemini-pro)"
+            />
+            <input type="text" id="new-model-name" placeholder="Display Name" />
+            <button id="add-model-btn" class="secondary-btn small-btn">
+              ➕ Добавить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
