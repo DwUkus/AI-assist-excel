@@ -9,6 +9,7 @@
       type="text/javascript"
       src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link href="dialog.css" rel="stylesheet" type="text/css" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,67 +20,81 @@
     />
   </head>
   <body>
-    <div class="app-container">
-      <!-- Header (Optional, mostly minimal) -->
-      <header class="app-header">
-        <div class="header-title">AI Excel Assistant</div>
-        <div class="header-actions">
-          <button id="settings-btn" class="icon-btn" title="Настройки API Key">⚙️</button>
-        </div>
-      </header>
-
-      <!-- Chat History -->
-      <div class="chat-history" id="chat-history">
-        <div class="message message-ai">
-          <div class="avatar">🤖</div>
-          <div class="message-content">
-            Привет! Я готов помочь вам с Excel. Напишите, что нужно сделать, например:
-            <ul>
-              <li>"Создай сводную таблицу по продажам"</li>
-              <li>"Выдели красным значения меньше 0"</li>
-            </ul>
-          </div>
-        </div>
-        <!-- Dynamic messages will be appended here -->
-      </div>
-
-      <!-- Input Area -->
-      <div class="input-area">
-        <div class="toolbar">
-          <div class="model-selector-wrapper">
-            <select id="model-select" class="model-select">
-              <!-- Populated via JS -->
-            </select>
-          </div>
-          <div class="context-toggles">
-            <label class="toggle-label" title="Отправить выделенные данные в AI">
-              <input type="checkbox" id="include-data" checked />
-              <span>📝 Данные</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="input-wrapper">
-          <textarea
-            id="user-input"
-            placeholder="Введите команду... (Ctrl+Enter)"
-            rows="1"
-          ></textarea>
-          <button id="send-btn" class="send-btn">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <button id="new-chat-btn" class="new-chat-btn">
+            <span>+</span> Новый чат
+          </button>
+          <button id="sidebar-toggle-close" class="icon-btn" title="Свернуть">
+            ◀
           </button>
         </div>
-      </div>
+        <div class="chat-list" id="chat-list">
+          <!-- Chat items will be injected here -->
+        </div>
+        <div class="sidebar-footer">
+            <button id="settings-btn" class="settings-btn-sidebar">
+                ⚙️ Настройки
+            </button>
+        </div>
+      </aside>
+
+      <!-- Main Chat Area -->
+      <main class="main-content" id="main-content">
+        <!-- Header -->
+        <header class="app-header">
+          <div class="header-left">
+            <button id="sidebar-toggle-open" class="icon-btn hidden" title="Развернуть">
+              ▶
+            </button>
+            <div class="header-title">AI Excel Assistant</div>
+          </div>
+          <div class="header-actions">
+            <!-- Actions moved to sidebar or context defaults -->
+          </div>
+        </header>
+
+        <!-- Chat History -->
+        <div class="chat-history" id="chat-history">
+          <div class="message message-ai">
+            <div class="avatar">🤖</div>
+            <div class="message-content">
+              Привет! Я готов помочь вам с Excel.
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+          <div class="toolbar">
+            <div class="model-selector-wrapper">
+              <select id="model-select" class="model-select"></select>
+            </div>
+            <div class="context-toggles">
+              <label class="toggle-label" title="Отправить выделенные данные в AI">
+                <input type="checkbox" id="include-data" checked />
+                <span>📝 Данные</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="input-wrapper">
+            <textarea
+              id="user-input"
+              placeholder="Сообщение... (Shift+Enter для переноса)"
+              rows="1"
+            ></textarea>
+            <button id="send-btn" class="send-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </main>
     </div>
 
     <!-- Settings Modal (Hidden by default) -->
@@ -115,6 +130,18 @@
               ➕ Добавить
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Удалить чат?</h3>
+        <p>Это действие нельзя отменить.</p>
+        <div class="modal-actions">
+          <button id="confirm-delete-btn" class="primary-btn" style="background-color: #ef4444;">Удалить</button>
+          <button id="cancel-delete-btn" class="secondary-btn">Отмена</button>
         </div>
       </div>
     </div>
