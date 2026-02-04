@@ -1,9 +1,10 @@
 {
-  "name": "office-addin-taskpane",
-  "version": "0.0.1",
+  "name": "ai-excel-assistant",
+  "version": "1.0.0",
+  "description": "AI Assistant for Excel - automate Excel operations via natural language commands",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OfficeDev/Office-Addin-TaskPane.git"
+    "url": "https://github.com/DwUkus/AI-assist-excel.git"
   },
   "license": "MIT",
   "config": {

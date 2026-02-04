@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
-  <Id>e74d04ba-7373-409a-892d-748c9296679a</Id>
+  <Id>b3f8c2d1-9a5e-4b7f-8c1d-3e6a9f2b4c8d</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>AI Excel Assistant</ProviderName>
   <DefaultLocale>ru-RU</DefaultLocale>
@@ -8,7 +8,7 @@
   <Description DefaultValue="Выполнение операций Excel через текстовые команды с помощью AI"/>
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
-  <SupportUrl DefaultValue="https://github.com"/>
+  <SupportUrl DefaultValue="https://github.com/DwUkus/AI-assist-excel"/>
   <AppDomains>
     <AppDomain>https://openrouter.ai</AppDomain>
   </AppDomains>

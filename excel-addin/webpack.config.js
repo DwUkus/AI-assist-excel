@@ -5,7 +5,10 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const urlDev = "https://localhost:3000/";
-const urlProd = "https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
+// Production URL - update this when deploying
+// For GitHub Pages: https://dwukus.github.io/AI-assist-excel/
+// For custom hosting: https://your-domain.com/
+const urlProd = "https://dwukus.github.io/AI-assist-excel/";
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
