@@ -28,6 +28,7 @@ module.exports = async (env, options) => {
     },
     output: {
       clean: true,
+      filename: "[name].[contenthash].js",
       publicPath: dev ? "/" : "/AI-assist-excel/",
     },
     resolve: {
@@ -113,6 +114,11 @@ module.exports = async (env, options) => {
         filename: "commands.html",
         template: "./src/commands/commands.html",
         chunks: ["polyfill", "commands"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "index.html",
+        template: "./src/index.html",
+        chunks: [],
       }),
     ],
     devServer: {

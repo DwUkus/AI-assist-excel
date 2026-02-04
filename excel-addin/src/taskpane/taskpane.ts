@@ -37,8 +37,7 @@ async function openAssistantDialog(): Promise<void> {
   try {
     if (statusMessage) statusMessage.textContent = "Открытие...";
     
-    // Construct the URL relative to the current page location
-    // This works for both localhost and GitHub Pages deployments
+    // Construct the URL. Use relative path to support GitHub Pages subfolder.
     const url = new URL("dialog.html", window.location.href).toString();
     
     Office.context.ui.displayDialogAsync(
