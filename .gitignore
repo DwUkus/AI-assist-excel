@@ -1,5 +1,11 @@
-# GSD State Files - игнорируем всю папку
+# Системные папки AI-инструментов
 .gsd/
+.agent/
+.gemini/
+
+# Скрипты валидации (не относятся к проекту)
+scripts/
+GSD-STYLE.md
 
 # OS generated
 Thumbs.db
