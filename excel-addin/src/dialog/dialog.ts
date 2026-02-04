@@ -4,6 +4,7 @@
 
 /* global document, Office, console, marked */
 
+import "./dialog.css";
 import { OpenRouterService, LLMMessage } from "../services/OpenRouterService";
 import { CommandParser } from "../services/CommandParser";
 

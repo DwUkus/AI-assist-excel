@@ -5,6 +5,7 @@
 
 /* global document, Office */
 
+import "./taskpane.css";
 import { ContextBuilder } from "../services/ContextBuilder";
 import { CommandExecutor } from "../services/CommandExecutor";
 
@@ -36,8 +37,9 @@ async function openAssistantDialog(): Promise<void> {
   try {
     if (statusMessage) statusMessage.textContent = "Открытие...";
     
-    // Construct the URL. In dev: https://localhost:3000/dialog.html
-    const url = new URL("/dialog.html", window.location.href).toString();
+    // Construct the URL relative to the current page location
+    // This works for both localhost and GitHub Pages deployments
+    const url = new URL("dialog.html", window.location.href).toString();
     
     Office.context.ui.displayDialogAsync(
       url,

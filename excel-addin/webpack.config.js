@@ -3,6 +3,7 @@
 const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const urlDev = "https://localhost:3000/";
 // Production URL - update this when deploying
@@ -27,6 +28,7 @@ module.exports = async (env, options) => {
     },
     output: {
       clean: true,
+      publicPath: dev ? "/" : "/AI-assist-excel/",
     },
     resolve: {
       extensions: [".ts", ".html", ".js"],
@@ -43,7 +45,23 @@ module.exports = async (env, options) => {
         {
           test: /\.html$/,
           exclude: /node_modules/,
-          use: "html-loader",
+          use: {
+            loader: "html-loader",
+            options: {
+              sources: {
+                list: [
+                  // Disable processing of img src attributes
+                  // Assets are copied via CopyWebpackPlugin
+                  {
+                    tag: "img",
+                    attribute: "src",
+                    type: "src",
+                    filter: () => false,
+                  },
+                ],
+              },
+            },
+          },
         },
         {
           test: /\.(png|jpg|jpeg|gif|ico)$/,
@@ -52,9 +70,16 @@ module.exports = async (env, options) => {
             filename: "assets/[name][ext][query]",
           },
         },
+        {
+          test: /\.css$/,
+          use: [MiniCssExtractPlugin.loader, "css-loader"],
+        },
       ],
     },
     plugins: [
+      new MiniCssExtractPlugin({
+        filename: "[name].css",
+      }),
       new HtmlWebpackPlugin({
         filename: "taskpane.html",
         template: "./src/taskpane/taskpane.html",
