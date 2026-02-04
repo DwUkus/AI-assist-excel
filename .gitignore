@@ -1,0 +1,24 @@
+# Системные папки AI-инструментов
+.gsd/
+.agent/
+.gemini/
+
+# Файлы не относящиеся к проекту (только в корне)
+scripts/
+/GSD-STYLE.md
+/CHANGELOG.md
+/LICENSE
+/VERSION
+
+# OS generated
+Thumbs.db
+.DS_Store
+
+# Node
+node_modules/
+dist/
+.env
+npm-debug.log
+yarn-error.log
+test-results/
+
