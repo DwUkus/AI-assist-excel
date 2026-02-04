@@ -3,13 +3,13 @@
 .agent/
 .gemini/
 
-# Файлы не относящиеся к проекту
+# Файлы не относящиеся к проекту (только в корне)
 scripts/
-GSD-STYLE.md
-CHANGELOG.md
-LICENSE
-README.md
-VERSION
+/GSD-STYLE.md
+/CHANGELOG.md
+/LICENSE
+/README.md
+/VERSION
 
 # OS generated
 Thumbs.db
