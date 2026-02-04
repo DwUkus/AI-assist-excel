@@ -3,9 +3,13 @@
 .agent/
 .gemini/
 
-# Скрипты валидации (не относятся к проекту)
+# Файлы не относящиеся к проекту
 scripts/
 GSD-STYLE.md
+CHANGELOG.md
+LICENSE
+README.md
+VERSION
 
 # OS generated
 Thumbs.db
