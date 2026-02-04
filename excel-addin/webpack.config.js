@@ -27,6 +27,7 @@ module.exports = async (env, options) => {
     },
     output: {
       clean: true,
+      filename: "[name].[contenthash].js",
     },
     resolve: {
       extensions: [".ts", ".html", ".js"],
